@@ -1,10 +1,10 @@
 {
-    "name": "@thanpolas/awesome",
+    "name": "@thanpolas/uniswap-chain-queries",
     "version": "0.0.0",
     "main": "./src/",
-    "description": "Awesome Lib",
-    "homepage": "https://github.com/thanpolas/awesome",
-    "bugs": "https://github.com/thanpolas/awesome/issues",
+    "description": "On chain queries for Uniswap V2 and V3",
+    "homepage": "https://github.com/thanpolas/uniswap-chain-queries",
+    "bugs": "https://github.com/thanpolas/uniswap-chain-queries/issues",
     "author": {
         "name": "Thanos Polychronakis",
         "email": "thanpolas@gmail.com"
@@ -14,7 +14,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/thanpolas/awesome"
+        "url": "https://github.com/thanpolas/uniswap-chain-queries"
     },
     "license": "ISC",
     "engines": {

@@ -1,11 +1,10 @@
-# Awesome Lib name
+# Uniswap Chain Queries
 
-> The awesome lib description
+> On chain queries for Uniswap V2 and V3
 
-[![CircleCI](https://circleci.com/gh/thanpolas/[...].svg?style=svg)](https://circleci.com/gh/thanpolas/[...])
-[![codecov](https://codecov.io/gh/thanpolas/[...]/branch/develop/graph/badge.svg)](https://codecov.io/gh/thanpolas/[...])
-[![npm version](https://badge.fury.io/js/[...].svg)](https://badge.fury.io/js/[...])
-[![Discord](https://img.shields.io/discord/847075821276758096)](https://discord.gg/GkyEqzJWEY)
+[![NPM Version][npm-image]][npm-url]
+[![CircleCI](https://circleci.com/gh/thanpolas/uniswap-chain-queries.svg?style=svg)](https://circleci.com/gh/thanpolas/uniswap-chain-queries)
+[![Discord](https://img.shields.io/discord/847075821276758096?label=discord&color=CBE9F0)](https://discord.gg/GkyEqzJWEY)
 [![Twitter Follow](https://img.shields.io/twitter/follow/thanpolas.svg?label=thanpolas&style=social)](https://twitter.com/thanpolas)
 
 ## Install
@@ -13,7 +12,7 @@
 Install the module using NPM:
 
 ```
-npm install @thanpolas/awesome-lib --save
+npm install @thanpolas/uniswap-chain-queries --save
 ```
 
 ## Documentation
@@ -45,3 +44,7 @@ When a new node version is available you need to updated it in the following:
 Copyright © [Thanos Polychronakis][thanpolas] and Authors, [Licensed under ISC](/LICENSE).
 
 [![CircleCI](https://circleci.com/gh/thanpolas/awesomelib/tree/main.svg?style=svg)](https://circleci.com/gh/thanpolas/awesomelib/tree/main)
+
+
+[npm-url]: https://npmjs.org/package/@thanpolas/uniswap-chain-queries
+[thanpolas]: https://github.com/thanpolas
