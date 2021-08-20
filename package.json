@@ -44,7 +44,11 @@
         "globalSetup": "./test/lib/global-setup.test.js",
         "testTimeout": 10000
     },
-    "dependencies": {},
+    "dependencies": {
+        "@thanpolas/crypto-utils": "^0.2.0",
+        "ethers": "^5.4.5",
+        "logality": "^3.0.4"
+    },
     "devDependencies": {
         "@types/jest": "27.0.1",
         "eslint": "7.32.0",
