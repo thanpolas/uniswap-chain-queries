@@ -3,7 +3,7 @@
  * calculates prices.
  */
 
-const { toAuto } = require('@thanpolas/crypto-utils');
+const { poolTokensToAuto } = require('@thanpolas/crypto-utils');
 
 const { getLPContract } = require('./contract-provider.ent');
 const { getToken } = require('../../erc20tokens');
@@ -26,20 +26,27 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
   const { _reserve0: token0Reserves, _reserve1: token1Reserves } =
     await lpContract.getReserves();
 
-  const [token0Decimals, token1Decimals] =
-    await entity._getLiquidityPoolTokenDecimals(
-      lpContract,
-      provider,
-      optTokenDecimals,
-    );
+  const tokenDecimalsTuple = await entity._getLiquidityPoolTokenDecimals(
+    lpContract,
+    provider,
+    optTokenDecimals,
+  );
 
   // Get the price
   const fraction = [token0Reserves, token1Reserves];
-  const fractionRev = [token1Reserves, token0Reserves];
-  const price = toAuto(fraction);
-  const priceFormatted = toAuto(fraction, null, true);
-  const priceRev = toAuto(fractionRev);
-  const priceRevFormatted = toAuto(fractionRev, null, true);
+
+  const price = poolTokensToAuto(fraction, tokenDecimalsTuple);
+  const priceFormatted = poolTokensToAuto(fraction, tokenDecimalsTuple, {
+    format: true,
+  });
+
+  const priceRev = poolTokensToAuto(fraction, tokenDecimalsTuple, {
+    reverse: true,
+  });
+  const priceRevFormatted = poolTokensToAuto(fraction, tokenDecimalsTuple, {
+    format: true,
+    reverse: true,
+  });
 
   const token0ReservesFormatted = new Intl.NumberFormat('en-US').format(
     token0Reserves,
