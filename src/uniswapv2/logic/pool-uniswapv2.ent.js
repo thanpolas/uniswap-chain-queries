@@ -8,8 +8,6 @@ const { toAuto } = require('@thanpolas/crypto-utils');
 const { getLPContract } = require('./contract-provider.ent');
 const { getToken } = require('../../erc20tokens');
 
-const log = require('../../logger').get();
-
 const entity = (module.exports = {});
 
 /**
