@@ -18,7 +18,7 @@ const erc20Token = require('./erc20tokens');
 
 const app = (module.exports = {});
 
-app.queryUniV2FactoryForLP = uniV2.queryUniV2FactoryForLP;
+app.queryFactoryForLPuniswapv2 = uniV2.queryFactoryForLPuniswapv2;
 app.getPriceUniswapV2 = uniV2.getPriceUniswapV2;
 app.getLiquidityPoolTokensByLpAddress = uniV2.getLiquidityPoolTokensByLpAddress;
 app.getFactoryContractV2 = uniV2.getFactoryContractV2;
