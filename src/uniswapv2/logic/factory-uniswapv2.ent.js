@@ -19,7 +19,11 @@ const entity = (module.exports = {});
  *    a single liquidity pool address or empty, array required for normalization
  *    of API.
  */
-entity.queryUniV2FactoryForLP = async (factoryAddress, provider, tokenPair) => {
+entity.queryFactoryForLPuniswapv2 = async (
+  factoryAddress,
+  provider,
+  tokenPair,
+) => {
   const contract = getFactoryContract(factoryAddress, provider);
 
   const [token0, token1] = tokenPair;

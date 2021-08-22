@@ -2,7 +2,7 @@
  * @fileoverview Uniswap V2 related modules and logic.
  */
 
-const { queryUniV2FactoryForLP } = require('./logic/factory-uniswapv2.ent');
+const { queryFactoryForLPuniswapv2 } = require('./logic/factory-uniswapv2.ent');
 const {
   getPriceUniswapV2,
   getLiquidityPoolTokensByLpAddress,
@@ -17,7 +17,7 @@ const factoryUniV2Abi = require('./abi/uniswap-v2-factory.abi.json');
 
 const entity = (module.exports = {});
 
-entity.queryUniV2FactoryForLP = queryUniV2FactoryForLP;
+entity.queryFactoryForLPuniswapv2 = queryFactoryForLPuniswapv2;
 entity.getPriceUniswapV2 = getPriceUniswapV2;
 entity.getLiquidityPoolTokensByLpAddress = getLiquidityPoolTokensByLpAddress;
 entity.getFactoryContractV2 = getFactoryContract;
