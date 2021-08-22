@@ -5,6 +5,7 @@
 const { ethers } = require('ethers');
 
 const abiPool = require('../abi/uniswap-v2-pool.abi.json');
+const abiFactory = require('../abi/uniswap-v2-factory.abi.json');
 
 const entity = (module.exports = {});
 
@@ -19,4 +20,21 @@ entity.getLPContract = (lpAddress, provider) => {
   const lpContract = new ethers.Contract(lpAddress, abiPool, provider);
 
   return lpContract;
+};
+
+/**
+ * Get the ethers.js Factory contract.
+ *
+ * @param {string} factoryAddress The factory contract Address.
+ * @param {Object} provider The provider to use.
+ * @return {Object} Ethers.js contract instance.
+ */
+entity.getFactoryContract = (factoryAddress, provider) => {
+  const factoryContract = new ethers.Contract(
+    factoryAddress,
+    abiFactory,
+    provider,
+  );
+
+  return factoryContract;
 };
