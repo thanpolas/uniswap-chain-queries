@@ -6,7 +6,7 @@
 const { poolTokensToAuto } = require('@thanpolas/crypto-utils');
 
 const { getLPContract } = require('./contract-provider.ent');
-const { getToken } = require('../../erc20tokens');
+const { getLPTokensData } = require('../../erc20tokens');
 
 const entity = (module.exports = {});
 
@@ -80,28 +80,7 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
 entity.getLiquidityPoolTokensByLpAddress = async (lpAddress, provider) => {
   const lpContract = getLPContract(lpAddress, provider);
 
-  const tokens = await entity.getLiquidityPoolTokensData(lpContract, provider);
-
-  return tokens;
-};
-
-/**
- * Will fetch the token data of the liquidity pool.
- *
- * @param {Object} lpContract LPs ether.js contract instance.
- * @param {Object} provider Ether.js provider instance.
- * @return {Promise<Array<Object>>} A promise with an array tuple containing
- *    the token objects.
- */
-entity.getLiquidityPoolTokensData = async (lpContract, provider) => {
-  const [token0Address, token1Address] = await Promise.all([
-    lpContract.token0(),
-    lpContract.token1(),
-  ]);
-  const tokens = await Promise.all([
-    getToken(token0Address, provider),
-    getToken(token1Address, provider),
-  ]);
+  const tokens = await getLPTokensData(lpContract, provider);
 
   return tokens;
 };
@@ -120,35 +99,4 @@ entity._formatPrice = (price) => {
   }
 
   return priceFixed;
-};
-
-/**
- *
- * @param {Object} lpContract LPs ether.js contract instance.
- * @param {Object} provider Ether.js provider instance.
- * @param {Array<string|number>=} optTokenDecimals Optionally define the token0
- *    and token1 decimals, if not, they will be fetched.
- * @return {Promise<Array<string|number>>} A promise with an array tuple
- *    containing the decimals of the tokens.
- * @private
- */
-entity._getLiquidityPoolTokenDecimals = async (
-  lpContract,
-  provider,
-  optTokenDecimals,
-) => {
-  // check if upstream defined the decimals
-  if (Array.isArray(optTokenDecimals) && optTokenDecimals.length === 2) {
-    return optTokenDecimals;
-  }
-
-  // decimals not defined, fetch them.
-  const [token0Data, token1Data] = await entity.getLiquidityPoolTokensData(
-    lpContract,
-    provider,
-  );
-
-  const decimals = [token0Data.decimals, token1Data.decimals];
-
-  return decimals;
 };
