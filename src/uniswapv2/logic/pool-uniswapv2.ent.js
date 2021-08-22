@@ -3,7 +3,7 @@
  * calculates prices.
  */
 
-const { poolTokensToAuto } = require('@thanpolas/crypto-utils');
+const { poolTokensToAuto, tokenToAuto } = require('@thanpolas/crypto-utils');
 
 const { getLPContract } = require('./contract-provider.ent');
 const {
@@ -26,8 +26,7 @@ const entity = (module.exports = {});
 entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
   const lpContract = getLPContract(lpAddress, provider);
 
-  const { _reserve0: token0Reserves, _reserve1: token1Reserves } =
-    await lpContract.getReserves();
+  const { _reserve0, _reserve1 } = await lpContract.getReserves();
 
   const tokenDecimalsTuple = await getLiquidityPoolTokenDecimals(
     lpContract,
@@ -36,27 +35,17 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
   );
 
   // Get the price
-  const fraction = [token0Reserves, token1Reserves];
+  const reservesTuple = [_reserve0, _reserve1];
 
-  const price = poolTokensToAuto(fraction, tokenDecimalsTuple);
-  const priceFormatted = poolTokensToAuto(fraction, tokenDecimalsTuple, {
-    format: true,
-  });
+  const { price, priceFormatted, priceRev, priceRevFormatted } =
+    entity._getPrices(reservesTuple, tokenDecimalsTuple);
 
-  const priceRev = poolTokensToAuto(fraction, tokenDecimalsTuple, {
-    reverse: true,
-  });
-  const priceRevFormatted = poolTokensToAuto(fraction, tokenDecimalsTuple, {
-    format: true,
-    reverse: true,
-  });
-
-  const token0ReservesFormatted = new Intl.NumberFormat('en-US').format(
+  const {
     token0Reserves,
-  );
-  const token1ReservesFormatted = new Intl.NumberFormat('en-US').format(
     token1Reserves,
-  );
+    token0ReservesFormatted,
+    token1ReservesFormatted,
+  } = entity._getReserves(reservesTuple, tokenDecimalsTuple);
 
   return {
     price,
@@ -102,4 +91,69 @@ entity._formatPrice = (price) => {
   }
 
   return priceFixed;
+};
+
+/**
+ * Perform calculations and formatting of prices based on token reserves.
+ *
+ * @param {Array<string>} reservesTuple Array tuple with token reserves.
+ * @param {Array<string>} tokenDecimalsTuple Array tuple with the tokens' decimals.
+ * @return {Object} Object with calculated and formated prices.
+ * @private
+ */
+entity._getPrices = (reservesTuple, tokenDecimalsTuple) => {
+  const price = poolTokensToAuto(reservesTuple, tokenDecimalsTuple);
+  const priceFormatted = poolTokensToAuto(reservesTuple, tokenDecimalsTuple, {
+    format: true,
+  });
+
+  const priceRev = poolTokensToAuto(reservesTuple, tokenDecimalsTuple, {
+    reverse: true,
+  });
+  const priceRevFormatted = poolTokensToAuto(
+    reservesTuple,
+    tokenDecimalsTuple,
+    {
+      format: true,
+      reverse: true,
+    },
+  );
+
+  return {
+    price,
+    priceFormatted,
+    priceRev,
+    priceRevFormatted,
+  };
+};
+
+/**
+ * Perform calculations and formatting of token reserves.
+ *
+ * @param {Array<string>} reservesTuple Array tuple with token reserves.
+ * @param {Array<string>} tokenDecimalsTuple Array tuple with the tokens' decimals.
+ * @return {Object} Object with calculated and formated reserves.
+ * @private
+ */
+entity._getReserves = (reservesTuple, tokenDecimalsTuple) => {
+  const [reserves0, reserves1] = reservesTuple;
+  const [token0Decimals, token1Decimals] = tokenDecimalsTuple;
+
+  const token0Reserves = tokenToAuto(reserves0, token0Decimals);
+  const token1Reserves = tokenToAuto(reserves1, token1Decimals);
+  const token0ReservesFormatted = tokenToAuto(reserves0, token0Decimals, {
+    decimalPlaces: 2,
+    format: true,
+  });
+  const token1ReservesFormatted = tokenToAuto(reserves1, token1Decimals, {
+    decimalPlaces: 2,
+    format: true,
+  });
+
+  return {
+    token0Reserves,
+    token1Reserves,
+    token0ReservesFormatted,
+    token1ReservesFormatted,
+  };
 };
