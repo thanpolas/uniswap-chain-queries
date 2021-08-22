@@ -15,7 +15,9 @@ const entity = (module.exports = {});
  * @param {Object} provider The provider to use.
  * @param {Array<string>} tokenPair Array tuple with addresses of the token
  *    pair to look for.
- * @return {Promise<string|void>} A promise with liquidity pool address or empty.
+ * @return {Promise<Array<string|void>>} A promise with an array containing
+ *    a single liquidity pool address or empty, array required for normalization
+ *    of API.
  */
 entity.queryUniV2FactoryForLP = async (factoryAddress, provider, tokenPair) => {
   const contract = getFactoryContract(factoryAddress, provider);
@@ -26,12 +28,12 @@ entity.queryUniV2FactoryForLP = async (factoryAddress, provider, tokenPair) => {
   try {
     lpAddress = await contract.getPair(token0.address, token1.address);
   } catch (ex) {
-    return;
+    return [];
   }
 
   if (lpAddress === NOT_FOUND) {
-    return;
+    return [];
   }
 
-  return lpAddress;
+  return [lpAddress];
 };
