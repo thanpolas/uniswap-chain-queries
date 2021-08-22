@@ -3,10 +3,8 @@
  *    UniswapV2 clones.
  */
 
-const { ethers } = require('ethers');
-
-const factoryAbi = require('../abi/uniswap-v2-factory.abi.json');
 const { NOT_FOUND } = require('../../constants/address.const');
+const { getFactoryContract } = require('./contract-provider.ent');
 
 const entity = (module.exports = {});
 
@@ -20,7 +18,7 @@ const entity = (module.exports = {});
  * @return {Promise<string|void>} A promise with liquidity pool address or empty.
  */
 entity.queryUniV2FactoryForLP = async (factoryAddress, provider, tokenPair) => {
-  const contract = new ethers.Contract(factoryAddress, factoryAbi, provider);
+  const contract = getFactoryContract(factoryAddress, provider);
 
   const [token0, token1] = tokenPair;
 
