@@ -6,7 +6,10 @@
 const { poolTokensToAuto } = require('@thanpolas/crypto-utils');
 
 const { getLPContract } = require('./contract-provider.ent');
-const { getLPTokensData } = require('../../erc20tokens');
+const {
+  getLPTokensData,
+  getLiquidityPoolTokenDecimals,
+} = require('../../erc20tokens');
 
 const entity = (module.exports = {});
 
@@ -26,7 +29,7 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
   const { _reserve0: token0Reserves, _reserve1: token1Reserves } =
     await lpContract.getReserves();
 
-  const tokenDecimalsTuple = await entity._getLiquidityPoolTokenDecimals(
+  const tokenDecimalsTuple = await getLiquidityPoolTokenDecimals(
     lpContract,
     provider,
     optTokenDecimals,
