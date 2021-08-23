@@ -56,5 +56,25 @@ describe('getToken()', () => {
       expect(contractMock.name).toHaveBeenCalledTimes(1);
       expect(contractMock.symbol).toHaveBeenCalledTimes(1);
     });
+
+    it('should suppress contract not found error and return empty', async () => {
+      const provMock = providerMock();
+      const contractMock = contractToken();
+
+      contractMock.decimals.mockImplementation(async () => {
+        throw new Error('call revert exception');
+      });
+
+      contractProvider.getERC20Contract = contractMock.Contract;
+      ethers.Contract = contractMock.Contract;
+
+      const tokenData = token0Data();
+
+      const { provider } = provMock;
+
+      const res = await getToken(tokenData.address, provider);
+
+      expect(res).toBeUndefined();
+    });
   });
 });
