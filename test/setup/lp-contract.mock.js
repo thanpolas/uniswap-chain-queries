@@ -6,7 +6,7 @@ const { token0Address, token1Address } = require('../fixtures/token.fix');
 
 const mock = (module.exports = {});
 
-mock.getLPContractMock = () => {
+mock.lpContractMock = () => {
   const token0 = jest.fn(() => Promise.resolve(token0Address));
   const token1 = jest.fn(() => Promise.resolve(token1Address));
 
