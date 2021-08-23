@@ -9,7 +9,11 @@ const {
   token1Data,
 } = require('../fixtures/token.fix');
 
-const { lpAddressFix, lpReservesFix } = require('../fixtures/lp-factory.fix');
+const {
+  lpAddressV2Fix,
+  lpReservesFix,
+  lpUniV3Fix,
+} = require('../fixtures/lp-factory.fix');
 
 const mock = (module.exports = {});
 
@@ -48,7 +52,7 @@ mock.contractToken = () => {
  * @return {Object}
  */
 mock.contractFactoryUniV2 = () => {
-  const getPair = jest.fn(async () => lpAddressFix);
+  const getPair = jest.fn(async () => lpAddressV2Fix);
 
   const Contract = jest.fn(() => {
     return { getPair };
@@ -103,5 +107,42 @@ mock.lpContractMock = () => {
     token0: contractMock.token0,
     token1: contractMock.token1,
     lpContract,
+  };
+};
+
+/**
+ * Creates a Contract Ctor with the methods used in uniV3 Liquidity Pool queries.
+ *
+ * @return {Object}
+ */
+mock.contractPoolUniV3 = () => {
+  const { slot0Fix, liquidityFix, tickSpacingFix, feeFix } = lpUniV3Fix();
+
+  const slot0 = jest.fn(() => Promise.resolve(slot0Fix()));
+  const liquidity = jest.fn(() => Promise.resolve(liquidityFix));
+  const tickSpacing = jest.fn(() => Promise.resolve(tickSpacingFix));
+  const fee = jest.fn(() => Promise.resolve(feeFix));
+  const token0 = jest.fn(() => Promise.resolve(token0Address));
+  const token1 = jest.fn(() => Promise.resolve(token1Address));
+
+  const Contract = jest.fn(() => {
+    return {
+      slot0,
+      liquidity,
+      tickSpacing,
+      fee,
+      token0,
+      token1,
+    };
+  });
+
+  return {
+    token0,
+    token1,
+    slot0,
+    liquidity,
+    tickSpacing,
+    fee,
+    Contract,
   };
 };
