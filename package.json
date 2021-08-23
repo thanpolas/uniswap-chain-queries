@@ -3,7 +3,7 @@
     "prvate": false,
     "version": "0.0.0",
     "main": "./src/",
-    "description": "On chain queries for ERC20 Tokens, Uniswap V2 and V3",
+    "description": "On chain queries for ERC20 Tokens, Uniswap V2, V2 clones and V3",
     "homepage": "https://github.com/thanpolas/uniswap-chain-queries",
     "bugs": "https://github.com/thanpolas/uniswap-chain-queries/issues",
     "author": {

@@ -1,6 +1,6 @@
 # Uniswap Chain Queries
 
-> On chain queries for ERC20 Tokens, Uniswap V2 and V3
+> On chain queries for ERC20 Tokens, Uniswap V2, V2 clones and V3
 
 [![NPM Version][npm-image]][npm-url]
 [![CircleCI](https://circleci.com/gh/thanpolas/uniswap-chain-queries.svg?style=svg)](https://circleci.com/gh/thanpolas/uniswap-chain-queries)
@@ -299,14 +299,12 @@ When a new node version is available you need to updated it in the following:
 
 ## Release History
 
--   **v0.0.1**, _TBD_
+-   **v0.0.1**, _23 Aug 2021_
     -   Big Bang
 
 ## License
 
 Copyright © [Thanos Polychronakis][thanpolas] and Authors, [Licensed under ISC](/LICENSE).
-
-[![CircleCI](https://circleci.com/gh/thanpolas/awesomelib/tree/main.svg?style=svg)](https://circleci.com/gh/thanpolas/awesomelib/tree/main)
 
 [npm-image]: https://img.shields.io/npm/v/@thanpolas/uniswap-chain-queries.svg
 [npm-url]: https://npmjs.org/package/@thanpolas/uniswap-chain-queries
