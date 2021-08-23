@@ -10,10 +10,10 @@ mock.lpContractMock = () => {
   const token0 = jest.fn(() => Promise.resolve(token0Address));
   const token1 = jest.fn(() => Promise.resolve(token1Address));
 
-  const lpContract = jest.fn({
+  const lpContract = {
     token0,
     token1,
-  });
+  };
 
   return {
     token0,
