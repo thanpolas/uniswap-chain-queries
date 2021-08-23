@@ -3,7 +3,7 @@
  */
 
 // don't spread so it's mockable for testing.
-const contractProviderUniv2 = require('../../uniswapv2');
+const contractProviderUniv2 = require('../../uniswapv2/logic/contract-provider.ent');
 const { getToken } = require('./get-token.ent');
 
 const entity = (module.exports = {});
@@ -17,7 +17,7 @@ const entity = (module.exports = {});
  * @return {Promise<Array<Object>>} A promise with an array tuple containing
  *    the token objects.
  */
-entity.getLPTokensByLpAddress = async (lpAddress, provider) => {
+entity.getLPTokensDataByLpAddress = async (lpAddress, provider) => {
   const lpContract = contractProviderUniv2.getLPContract(lpAddress, provider);
 
   const tokens = await entity.getLPTokensData(lpContract, provider);
