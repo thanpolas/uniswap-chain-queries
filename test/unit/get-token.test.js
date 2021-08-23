@@ -76,5 +76,26 @@ describe('getToken()', () => {
 
       expect(res).toBeUndefined();
     });
+
+    it('should throw any other errors', () => {
+      const provMock = providerMock();
+      const contractMock = contractToken();
+
+      contractMock.decimals.mockImplementation(async () => {
+        throw new Error('An error');
+      });
+
+      contractProvider.getERC20Contract = contractMock.Contract;
+      ethers.Contract = contractMock.Contract;
+
+      const tokenData = token0Data();
+
+      const { provider } = provMock;
+
+      // eslint-disable-next-line jest/valid-expect
+      expect(getToken(tokenData.address, provider)).rejects.toThrowError(
+        'An error',
+      );
+    });
   });
 });
