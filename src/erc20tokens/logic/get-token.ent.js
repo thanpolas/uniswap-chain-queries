@@ -30,12 +30,12 @@ entity.getToken = async (tokenAddress, provider) => {
       erc20GenericAbi,
       provider,
     );
-    const network = await provider.getNetwork();
 
-    const [decimals, name, symbol] = await Promise.all([
-      await tokenContract.decimals(),
-      await tokenContract.name(),
-      await tokenContract.symbol(),
+    const [decimals, name, symbol, providerNetwork] = await Promise.all([
+      tokenContract.decimals(),
+      tokenContract.name(),
+      tokenContract.symbol(),
+      provider.getNetwork(),
     ]);
 
     const tokenData = {
@@ -43,7 +43,8 @@ entity.getToken = async (tokenAddress, provider) => {
       name,
       symbol,
       decimals,
-      chainId: network.chainId,
+      chainId: providerNetwork.chainId,
+      network: providerNetwork.name,
     };
 
     // Update cache
