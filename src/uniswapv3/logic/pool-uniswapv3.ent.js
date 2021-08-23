@@ -33,7 +33,6 @@ entity.getPriceUniswapV3 = async (lpAddress, provider, optTokenDecimals) => {
   const [[slot0Data, liquidityRaw, tickSpacing, feeRaw], lpTokenDecimals] =
     await Promise.all([
       entity._fetchOnChainData(lpContract),
-
       getLPTokenDecimals(lpContract, provider, optTokenDecimals),
     ]);
 
