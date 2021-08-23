@@ -12,9 +12,11 @@ const {
   contractToken,
 } = require('../../setup/contracts.mock');
 
-const { assert: assertPoolPrice } = require('../../assert/pool-price.assert');
+const {
+  assert: assertPoolPrice,
+} = require('../../assert/pool-price-v2.assert');
 
-const { factoryAddressFix } = require('../../fixtures/lp-factory.fix');
+const { lpAddressV2Fix } = require('../../fixtures/lp-factory.fix');
 const { uniV2_dai_weth } = require('../../fixtures/prices.fix');
 
 describe('getPriceUniswapV2()', () => {
@@ -29,9 +31,34 @@ describe('getPriceUniswapV2()', () => {
 
       const { provider } = provMock;
 
-      const res = await getPriceUniswapV2(factoryAddressFix, provider);
+      const res = await getPriceUniswapV2(lpAddressV2Fix, provider);
 
       assertPoolPrice(res, uniV2_dai_weth());
+
+      expect(contractMockToken.decimals).toHaveReturnedTimes(2);
+      expect(contractMockToken.name).toHaveReturnedTimes(2);
+      expect(contractMockToken.symbol).toHaveReturnedTimes(2);
+    });
+
+    it('should return price and not fetch token data when given decimals', async () => {
+      const provMock = providerMock();
+      const contractMockPool = contractPoolUniV2();
+      const contractMockToken = contractToken();
+
+      contractProviderUniv2.getLPContract = contractMockPool.Contract;
+      contractProviderToken.getERC20Contract = contractMockToken.Contract;
+
+      const { provider } = provMock;
+
+      const decimals = [18, 18];
+
+      const res = await getPriceUniswapV2(lpAddressV2Fix, provider, decimals);
+
+      assertPoolPrice(res, uniV2_dai_weth());
+
+      expect(contractMockToken.decimals).toHaveReturnedTimes(0);
+      expect(contractMockToken.name).toHaveReturnedTimes(0);
+      expect(contractMockToken.symbol).toHaveReturnedTimes(0);
     });
   });
 });
