@@ -18,11 +18,7 @@ const entity = (module.exports = {});
  * @return {Promise<Array<string|number>>} A promise with an array tuple
  *    containing the decimals of the tokens.
  */
-entity.getLiquidityPoolTokenDecimals = async (
-  lpContract,
-  provider,
-  optTokenDecimals,
-) => {
+entity.getLPTokenDecimals = async (lpContract, provider, optTokenDecimals) => {
   // check if upstream defined the decimals
   if (Array.isArray(optTokenDecimals) && optTokenDecimals.length === 2) {
     return optTokenDecimals;

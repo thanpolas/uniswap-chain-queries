@@ -36,6 +36,6 @@ app.FEES = uniV3.FEES;
 app.FEE_DECIMALS = uniV3.FEE_DECIMALS;
 
 app.getToken = erc20Token.getToken;
-app.getLiquidityPoolTokenDecimals = erc20Token.getLiquidityPoolTokenDecimals;
+app.getLPTokenDecimals = erc20Token.getLPTokenDecimals;
 app.getLPTokensData = erc20Token.getLPTokensData;
 app.erc20abi = erc20Token.erc20abi;
