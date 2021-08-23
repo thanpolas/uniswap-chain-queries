@@ -14,7 +14,7 @@ fix.uniV2_dai_weth = () => {
     token1Reserves: '12231.19237',
     token0ReservesFormatted: '40,696,198.4',
     token1ReservesFormatted: '12,231.19',
-    lpAddress: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
+    lpAddress: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
   };
 };
 
