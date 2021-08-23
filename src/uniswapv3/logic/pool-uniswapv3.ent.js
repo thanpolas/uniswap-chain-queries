@@ -9,7 +9,7 @@ const {
 } = require('@thanpolas/univ3prices');
 
 const { FEE_DECIMALS } = require('../constants/fees.const');
-const { getLPContract } = require('./contract-provider.ent');
+const contractProviderUniv3 = require('./contract-provider.ent');
 const { getLPTokenDecimals } = require('../../erc20tokens');
 
 const entity = (module.exports = {});
@@ -28,7 +28,7 @@ entity._tokenDataMap = new Map();
  * @return {Promise<Object>} A promise with the price and LP size.
  */
 entity.getPriceUniswapV3 = async (lpAddress, provider, optTokenDecimals) => {
-  const lpContract = getLPContract(lpAddress, provider);
+  const lpContract = contractProviderUniv3.getLPContract(lpAddress, provider);
 
   const [slot0Data, liquidityRaw, tickSpacing, feeRaw] =
     await entity._fetchOnChainData(lpContract);
