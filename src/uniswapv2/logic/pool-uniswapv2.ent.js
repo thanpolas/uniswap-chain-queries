@@ -5,8 +5,8 @@
 
 const { poolTokensToAuto, tokenToAuto } = require('@thanpolas/crypto-utils');
 
-const { getLPContract } = require('./contract-provider.ent');
-const { getLPTokensData, getLPTokenDecimals } = require('../../erc20tokens');
+const contractProvider = require('./contract-provider.ent');
+const { getLPTokenDecimals } = require('../../erc20tokens');
 
 const entity = (module.exports = {});
 
@@ -21,7 +21,7 @@ const entity = (module.exports = {});
  * @return {Promise<Object>} A promise with the price and LP size.
  */
 entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
-  const lpContract = getLPContract(lpAddress, provider);
+  const lpContract = contractProvider.getLPContract(lpAddress, provider);
 
   const { _reserve0, _reserve1 } = await lpContract.getReserves();
 
@@ -55,39 +55,6 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
     token1ReservesFormatted,
     lpAddress,
   };
-};
-
-/**
- * Will return data of the tokens comprizing the liquidity pool from chain,
- * wrapper for getLiquidityPoolTokensRaw, instantiating the LP contract.
- *
- * @param {string} lpAddress the LP address.
- * @param {Object} provider The provider to use.
- * @return {Promise<Array<Object>>} A promise with an array tuple containing
- *    the token objects.
- */
-entity.getLPTokensByLpAddress = async (lpAddress, provider) => {
-  const lpContract = getLPContract(lpAddress, provider);
-
-  const tokens = await getLPTokensData(lpContract, provider);
-
-  return tokens;
-};
-
-/**
- * Will format the price to human readable format.
- *
- * @param {number} price The price to format.
- * @return {string} Formatted price.
- */
-entity._formatPrice = (price) => {
-  let priceFixed = price;
-  if (price > 2) {
-    priceFixed = price.toFixed(2);
-    priceFixed = new Intl.NumberFormat('en-US').format(priceFixed);
-  }
-
-  return priceFixed;
 };
 
 /**
