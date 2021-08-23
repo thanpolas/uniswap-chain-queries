@@ -7,7 +7,7 @@ const contractProvider = require('../../../src/erc20tokens/logic/contract-provid
 const getTokenEnt = require('../../../src/erc20tokens/logic/get-token.ent');
 
 const { providerMock } = require('../../setup/provider.mock');
-const { contractToken } = require('../../setup/ethers.mock');
+const { contractToken } = require('../../setup/contracts.mock');
 
 const { assert: assertTokenData } = require('../../assert/token-data.assert');
 const { token0Data } = require('../../fixtures/token.fix');

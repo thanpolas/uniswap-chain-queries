@@ -6,7 +6,7 @@ const { queryFactoryForLPuniswapv2 } = require('../../..');
 const contractProvider = require('../../../src/uniswapv2/logic/contract-provider.ent');
 
 const { providerMock } = require('../../setup/provider.mock');
-const { contractFactoryUniV2 } = require('../../setup/ethers.mock');
+const { contractFactoryUniV2 } = require('../../setup/contracts.mock');
 
 const { tokenPair } = require('../../fixtures/token.fix');
 const {

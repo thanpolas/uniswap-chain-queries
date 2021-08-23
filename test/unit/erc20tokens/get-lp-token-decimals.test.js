@@ -7,7 +7,7 @@ const contractProvider = require('../../../src/erc20tokens/logic/contract-provid
 
 const { lpContractMock } = require('../../setup/lp-contract.mock');
 const { providerMock } = require('../../setup/provider.mock');
-const { contractToken } = require('../../setup/ethers.mock');
+const { contractToken } = require('../../setup/contracts.mock');
 
 describe('getLPTokenDecimals()', () => {
   describe('Happy Path', () => {
