@@ -4,17 +4,11 @@ workflows:
   version: 2
   node-multi-build:
     jobs:
-      - node-v10
       - node-v12
       - node-v14
       - node-v16
 
 jobs:
-  node-v10:
-    docker:
-      - image: node:10
-    steps:
-      - build
   node-v12:
     docker:
       - image: node:12
