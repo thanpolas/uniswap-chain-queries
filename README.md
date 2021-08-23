@@ -7,6 +7,14 @@
 [![Discord](https://img.shields.io/discord/847075821276758096?label=discord&color=CBE9F0)](https://discord.gg/GkyEqzJWEY)
 [![Twitter Follow](https://img.shields.io/twitter/follow/thanpolas.svg?label=thanpolas&style=social)](https://twitter.com/thanpolas)
 
+## Features
+
+This library will allow you to:
+
+-   [Query on-chain ERC20 tokens for their Data][erc20-docs].
+-   [Query on-chain for Uniswap V2 Liquidity Pools and fetch prices for a token pair][univ2-docs].
+-   [Query on-chain for Uniswap V3 Liquidity Pools and fetch prices for a token pair][univ3-docs].
+
 ## Install
 
 Install the module using NPM:
@@ -15,7 +23,7 @@ Install the module using NPM:
 npm install @thanpolas/uniswap-chain-queries --save
 ```
 
-## Documentation
+## Query ERC20 Tokens
 
 ## Update Node Version
 
