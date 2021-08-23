@@ -13,6 +13,9 @@ const {
   lpAddressV2Fix,
   lpReservesFix,
   lpUniV3Fix,
+  lpAddressV3SmallFeeFix,
+  lpAddressV3MediumFeeFix,
+  lpAddressV3HighFeeFix,
 } = require('../fixtures/lp-factory.fix');
 
 const mock = (module.exports = {});
@@ -143,6 +146,38 @@ mock.contractPoolUniV3 = () => {
     liquidity,
     tickSpacing,
     fee,
+    Contract,
+  };
+};
+
+/**
+ * Creates a Contract Ctor with the methods used in uniV3 factory queries.
+ *
+ * @return {Object}
+ */
+mock.contractFactoryUniV3 = () => {
+  let getPool;
+  const Contract = jest.fn(() => {
+    getPool = jest.fn(async (_token0Address, _token1Address, fee) => {
+      switch (fee) {
+        case 500:
+          return lpAddressV3SmallFeeFix;
+        case 3000:
+          return lpAddressV3MediumFeeFix;
+        case 10000:
+          return lpAddressV3HighFeeFix;
+        default:
+          break;
+      }
+    });
+
+    return {
+      getPool,
+    };
+  });
+
+  return {
+    getPool,
     Contract,
   };
 };
