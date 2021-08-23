@@ -4,11 +4,12 @@
 
 const {
   token0Address,
+  token1Address,
   token0Data,
   token1Data,
 } = require('../fixtures/token.fix');
 
-const { lpAddressFix } = require('../fixtures/lp-factory.fix');
+const { lpAddressFix, lpReservesFix } = require('../fixtures/lp-factory.fix');
 
 const mock = (module.exports = {});
 
@@ -56,5 +57,51 @@ mock.contractFactoryUniV2 = () => {
   return {
     getPair,
     Contract,
+  };
+};
+
+/**
+ * Creates a Contract Ctor with the methods used in uniV2 Liquidity Pool queries.
+ *
+ * @return {Object}
+ */
+mock.contractPoolUniV2 = () => {
+  const getReserves = jest.fn(async () => lpReservesFix());
+  const token0 = jest.fn(() => Promise.resolve(token0Address));
+  const token1 = jest.fn(() => Promise.resolve(token1Address));
+
+  const Contract = jest.fn(() => {
+    return {
+      token0,
+      token1,
+      getReserves,
+    };
+  });
+
+  return {
+    getReserves,
+    token0,
+    token1,
+    Contract,
+  };
+};
+
+/**
+ * Instantiated LP Contract.
+ *
+ * @return {Object}
+ */
+mock.lpContractMock = () => {
+  const contractMock = mock.contractPoolUniV2();
+
+  const lpContract = {
+    token0: contractMock.token0,
+    token1: contractMock.token1,
+  };
+
+  return {
+    token0: contractMock.token0,
+    token1: contractMock.token1,
+    lpContract,
   };
 };
