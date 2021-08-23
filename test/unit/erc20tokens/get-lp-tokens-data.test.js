@@ -5,7 +5,7 @@
 const { getLPTokensData } = require('../../..');
 const contractProvider = require('../../../src/erc20tokens/logic/contract-provider');
 
-const { lpContractMock } = require('../../setup/lp-contract.mock');
+const { lpContractMock } = require('../../setup/contracts.mock');
 const { providerMock } = require('../../setup/provider.mock');
 const { contractToken } = require('../../setup/contracts.mock');
 
