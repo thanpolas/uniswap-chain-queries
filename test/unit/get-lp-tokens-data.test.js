@@ -5,6 +5,7 @@
 const { ethers } = require('ethers');
 
 const { getLPTokensData } = require('../..');
+const contractProvider = require('../../src/erc20tokens/logic/contract-provider');
 
 const { lpContractMock } = require('../setup/lp-contract.mock');
 const { providerMock } = require('../setup/provider.mock');
@@ -23,6 +24,7 @@ describe('getLPTokensData()', () => {
       const provMock = providerMock();
       const contractMock = contractToken();
 
+      contractProvider.getERC20Contract = contractMock.Contract;
       ethers.Contract = contractMock.Contract;
 
       const { lpContract } = lpMock;
