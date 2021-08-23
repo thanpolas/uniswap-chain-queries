@@ -17,3 +17,18 @@ fix.uniV2_dai_weth = () => {
     lpAddress: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
   };
 };
+
+fix.uniV3_dai_weth = () => {
+  return {
+    price: '3338.22446',
+    priceFormatted: '3,338.22446',
+    priceRev: '0.00029956',
+    priceRevFormatted: '0.00029956',
+    fee: '0.3%',
+    token0Reserves: '364612.40140',
+    token1Reserves: '303.24597',
+    token0ReservesFormatted: '364,612.4014',
+    token1ReservesFormatted: '303.24597',
+    lpAddress: '0xc2e9f25be6257c210d7adf0d4cd6e3e881ba25f8',
+  };
+};
