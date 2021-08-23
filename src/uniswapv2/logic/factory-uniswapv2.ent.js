@@ -4,7 +4,7 @@
  */
 
 const { NOT_FOUND } = require('../../constants/address.const');
-const { getFactoryContract } = require('./contract-provider.ent');
+const contractProvider = require('./contract-provider.ent');
 
 const entity = (module.exports = {});
 
@@ -24,13 +24,16 @@ entity.queryFactoryForLPuniswapv2 = async (
   provider,
   tokenPair,
 ) => {
-  const contract = getFactoryContract(factoryAddress, provider);
+  const contract = contractProvider.getFactoryContract(
+    factoryAddress,
+    provider,
+  );
 
-  const [token0, token1] = tokenPair;
+  const [token0Address, token1Address] = tokenPair;
 
   let lpAddress;
   try {
-    lpAddress = await contract.getPair(token0.address, token1.address);
+    lpAddress = await contract.getPair(token0Address, token1Address);
   } catch (ex) {
     return [];
   }
