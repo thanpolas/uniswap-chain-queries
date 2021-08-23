@@ -8,6 +8,8 @@ const {
   token1Data,
 } = require('../fixtures/token.fix');
 
+const { lpAddressFix } = require('../fixtures/lp-factory.fix');
+
 const mock = (module.exports = {});
 
 /**
@@ -35,6 +37,24 @@ mock.contractToken = () => {
     decimals,
     name,
     symbol,
+    Contract,
+  };
+};
+
+/**
+ * Creates a Contract Ctor with the methods used in uniV2 factory queries.
+ *
+ * @return {Object}
+ */
+mock.contractFactoryUniV2 = () => {
+  const getPair = jest.fn(async () => lpAddressFix);
+
+  const Contract = jest.fn(() => {
+    return { getPair };
+  });
+
+  return {
+    getPair,
     Contract,
   };
 };
