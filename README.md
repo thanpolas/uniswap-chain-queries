@@ -308,7 +308,11 @@ Copyright © [Thanos Polychronakis][thanpolas] and Authors, [Licensed under ISC]
 
 [![CircleCI](https://circleci.com/gh/thanpolas/awesomelib/tree/main.svg?style=svg)](https://circleci.com/gh/thanpolas/awesomelib/tree/main)
 
+[npm-image]: https://img.shields.io/npm/v/@thanpolas/uniswap-chain-queries.svg
 [npm-url]: https://npmjs.org/package/@thanpolas/uniswap-chain-queries
 [thanpolas]: https://github.com/thanpolas
 [ether-provider]: https://docs.ethers.io/v5/api/providers/
 [ether-contract]: https://docs.ethers.io/v5/api/contract/contract/
+[erc20-docs]: #erc20-tokens-queries
+[univ2-docs]: #uniswap-v2-queries
+[univ3-docs]: #uniswap-v3-queries
