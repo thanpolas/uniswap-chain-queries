@@ -23,17 +23,14 @@ const entity = (module.exports = {});
 entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
   const lpContract = contractProvider.getLPContract(lpAddress, provider);
 
-  const { _reserve0, _reserve1 } = await lpContract.getReserves();
+  const [{ _reserve0, _reserve1 }, tokenDecimalsTuple] = await Promise.all([
+    lpContract.getReserves(),
+    getLPTokenDecimals(lpContract, provider, optTokenDecimals),
+  ]);
 
-  const tokenDecimalsTuple = await getLPTokenDecimals(
-    lpContract,
-    provider,
-    optTokenDecimals,
-  );
-
-  // Get the price
   const reservesTuple = [_reserve0, _reserve1];
 
+  // Get the price
   const { price, priceFormatted, priceRev, priceRevFormatted } =
     entity._getPrices(reservesTuple, tokenDecimalsTuple);
 

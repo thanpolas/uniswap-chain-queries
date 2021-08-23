@@ -30,14 +30,12 @@ entity._tokenDataMap = new Map();
 entity.getPriceUniswapV3 = async (lpAddress, provider, optTokenDecimals) => {
   const lpContract = contractProviderUniv3.getLPContract(lpAddress, provider);
 
-  const [slot0Data, liquidityRaw, tickSpacing, feeRaw] =
-    await entity._fetchOnChainData(lpContract);
+  const [[slot0Data, liquidityRaw, tickSpacing, feeRaw], lpTokenDecimals] =
+    await Promise.all([
+      entity._fetchOnChainData(lpContract),
 
-  const lpTokenDecimals = await getLPTokenDecimals(
-    lpContract,
-    provider,
-    optTokenDecimals,
-  );
+      getLPTokenDecimals(lpContract, provider, optTokenDecimals),
+    ]);
 
   // Calculate ratios (prices)
   const { price, priceFormatted, priceRev, priceRevFormatted } =
