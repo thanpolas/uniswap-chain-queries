@@ -1,0 +1,7 @@
+.nvmrc
+test
+.vscode
+.github
+.circleci
+.prettierrc
+.eslintrc.yml

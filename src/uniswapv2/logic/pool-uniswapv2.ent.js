@@ -3,46 +3,43 @@
  * calculates prices.
  */
 
-const { getTokenData } = require('../../../logic/tokens.ent');
-const {
-  getLPContractAndProvider,
-} = require('../../../logic/get-lp-contract.ent');
+const { poolTokensToAuto, tokenToAuto } = require('@thanpolas/crypto-utils');
 
-const log = require('../../../../../services/log.service').get();
+const contractProvider = require('./contract-provider.ent');
+const { getLPTokenDecimals } = require('../../erc20tokens');
 
 const entity = (module.exports = {});
-
-/** @type {Map} A Map containing the number of decimals per token address */
-entity._tokenDataMap = new Map();
 
 /**
  * Will fetch LP Contract reserves and calculate the appropriate price for the
  * LP Pair.
  *
- * @param {LiquidityPool|Object} liquidityPool the LP record to fetch price for
- *  or simple LP object.
- * @param {Object} lpContract The LP contract instance.
+ * @param {string} lpAddress the LP address.
  * @param {Object} provider The provider to use.
+ * @param {Array<string|number>=} optTokenDecimals Optionally define the token0
+ *    and token1 decimals, if not, they will be fetched.
  * @return {Promise<Object>} A promise with the price and LP size.
  */
-entity.getPriceUniswapV2 = async (liquidityPool, lpContract, provider) => {
-  const [token0Reserves, token1Reserves] = await entity._getNormalizedReserves(
-    liquidityPool,
-    lpContract,
-    provider,
-  );
+entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
+  const lpContract = contractProvider.getLPContract(lpAddress, provider);
+
+  const [{ _reserve0, _reserve1 }, tokenDecimalsTuple] = await Promise.all([
+    lpContract.getReserves(),
+    getLPTokenDecimals(lpContract, provider, optTokenDecimals),
+  ]);
+
+  const reservesTuple = [_reserve0, _reserve1];
 
   // Get the price
-  const price = token0Reserves / token1Reserves;
-  const priceFormatted = entity._formatPrice(price);
-  const priceRev = token1Reserves / token0Reserves;
-  const priceRevFormatted = entity._formatPrice(priceRev);
-  const token0ReservesFormatted = new Intl.NumberFormat('en-US').format(
+  const { price, priceFormatted, priceRev, priceRevFormatted } =
+    entity._getPrices(reservesTuple, tokenDecimalsTuple);
+
+  const {
     token0Reserves,
-  );
-  const token1ReservesFormatted = new Intl.NumberFormat('en-US').format(
     token1Reserves,
-  );
+    token0ReservesFormatted,
+    token1ReservesFormatted,
+  } = entity._getReserves(reservesTuple, tokenDecimalsTuple);
 
   return {
     price,
@@ -53,114 +50,71 @@ entity.getPriceUniswapV2 = async (liquidityPool, lpContract, provider) => {
     token1Reserves,
     token0ReservesFormatted,
     token1ReservesFormatted,
-    liquidityPool,
-    lpAddress: liquidityPool.contract_address,
+    lpAddress,
   };
 };
 
 /**
- * Will return the normalized reserves of the liquidity pool tokens.
+ * Perform calculations and formatting of prices based on token reserves.
  *
- * @param {LiquidityPool|Object} liquidityPool the LP record to fetch price for
- *  or simple LP object.
- * @param {Object} lpContract The LP contract instance.
- * @param {Object} provider The provider to use.
- * @return {Promise<Array<number>>} A promise with a tuple representing the
- *    token reserves in the LP.
+ * @param {Array<string>} reservesTuple Array tuple with token reserves.
+ * @param {Array<string>} tokenDecimalsTuple Array tuple with the tokens' decimals.
+ * @return {Object} Object with calculated and formated prices.
  * @private
  */
-entity._getNormalizedReserves = async (liquidityPool, lpContract, provider) => {
-  try {
-    const reserves = await lpContract.getReserves();
+entity._getPrices = (reservesTuple, tokenDecimalsTuple) => {
+  const price = poolTokensToAuto(reservesTuple, tokenDecimalsTuple);
+  const priceFormatted = poolTokensToAuto(reservesTuple, tokenDecimalsTuple, {
+    format: true,
+  });
 
-    let token0decimals = liquidityPool.token0_decimals;
-    let token1decimals = liquidityPool.token1_decimals;
-
-    if (!token0decimals) {
-      // not an LP record, fetch decimals from chain
-      const { token0, token1 } = await entity.getLiquidityPoolTokensRaw(
-        lpContract,
-        provider,
-      );
-      token0decimals = token0.decimals;
-      token1decimals = token1.decimals;
-    }
-
-    // convert the numbers to appropriate values based on their decimals declared
-    // in their contracts
-    const token0Reserves = Number(reserves._reserve0) / 10 ** token0decimals;
-    const token1Reserves = Number(reserves._reserve1) / 10 ** token1decimals;
-
-    return [token0Reserves, token1Reserves];
-  } catch (ex) {
-    await log.error('_getNormalizedReserves() Error', {
-      error: ex,
-      liquidityPool,
-      relay: true,
-    });
-    return [];
-  }
-};
-
-/**
- * Will return data of the tokens comprizing the liquidity pool from chain,
- * wrapper for getLiquidityPoolTokensRaw, instantiating the LP contract and
- * provider.
- *
- * @param {LiquidityPool} liquidityPool the LP record to fetch tokens for.
- * @return {Promise<Object>} A promise with the data for the two tokens.
- */
-entity.getLiquidityPoolTokens = async (liquidityPool) => {
-  const { lpContract, provider } = getLPContractAndProvider(liquidityPool);
-
-  const lps = await entity.getLiquidityPoolTokensRaw(lpContract, provider);
-
-  return lps;
-};
-
-/**
- * The actual operation of fetching the tokens' data that the Liquidity Pool
- * is comprized of.
- *
- * @param {Object} lpContract LPs ether.js contract instance.
- * @param {Object} provider Ether.js provider instance.
- * @return {Promise<Object>} A promise with the data for the two tokens.
- */
-entity.getLiquidityPoolTokensRaw = async (lpContract, provider) => {
-  const token0Address = await lpContract.token0();
-  const token1Address = await lpContract.token1();
-
-  const token0Data = await getTokenData(token0Address, provider);
-  const token1Data = await getTokenData(token1Address, provider);
+  const priceRev = poolTokensToAuto(reservesTuple, tokenDecimalsTuple, {
+    reverse: true,
+  });
+  const priceRevFormatted = poolTokensToAuto(
+    reservesTuple,
+    tokenDecimalsTuple,
+    {
+      format: true,
+      reverse: true,
+    },
+  );
 
   return {
-    token0: {
-      name: token0Data.name,
-      symbol: token0Data.symbol,
-      address: token0Address,
-      decimals: token0Data.decimals,
-    },
-    token1: {
-      name: token1Data.name,
-      symbol: token1Data.symbol,
-      address: token1Address,
-      decimals: token1Data.decimals,
-    },
+    price,
+    priceFormatted,
+    priceRev,
+    priceRevFormatted,
   };
 };
 
 /**
- * Will format the price to human readable format.
+ * Perform calculations and formatting of token reserves.
  *
- * @param {number} price The price to format.
- * @return {string} Formatted price.
+ * @param {Array<string>} reservesTuple Array tuple with token reserves.
+ * @param {Array<string>} tokenDecimalsTuple Array tuple with the tokens' decimals.
+ * @return {Object} Object with calculated and formated reserves.
+ * @private
  */
-entity._formatPrice = (price) => {
-  let priceFixed = price;
-  if (price > 2) {
-    priceFixed = price.toFixed(2);
-    priceFixed = new Intl.NumberFormat('en-US').format(priceFixed);
-  }
+entity._getReserves = (reservesTuple, tokenDecimalsTuple) => {
+  const [reserves0, reserves1] = reservesTuple;
+  const [token0Decimals, token1Decimals] = tokenDecimalsTuple;
 
-  return priceFixed;
+  const token0Reserves = tokenToAuto(reserves0, token0Decimals);
+  const token1Reserves = tokenToAuto(reserves1, token1Decimals);
+  const token0ReservesFormatted = tokenToAuto(reserves0, token0Decimals, {
+    decimalPlaces: 2,
+    format: true,
+  });
+  const token1ReservesFormatted = tokenToAuto(reserves1, token1Decimals, {
+    decimalPlaces: 2,
+    format: true,
+  });
+
+  return {
+    token0Reserves,
+    token1Reserves,
+    token0ReservesFormatted,
+    token1ReservesFormatted,
+  };
 };

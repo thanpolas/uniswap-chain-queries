@@ -1,8 +1,9 @@
 {
     "name": "@thanpolas/uniswap-chain-queries",
+    "prvate": false,
     "version": "0.0.0",
     "main": "./src/",
-    "description": "On chain queries for Uniswap V2 and V3",
+    "description": "On chain queries for ERC20 Tokens, Uniswap V2 and V3",
     "homepage": "https://github.com/thanpolas/uniswap-chain-queries",
     "bugs": "https://github.com/thanpolas/uniswap-chain-queries/issues",
     "author": {
@@ -23,18 +24,23 @@
     "scripts": {
         "test": "npm run eslint && npm run jest",
         "eslint": "eslint src test",
-        "jest": "TZ=utc jest",
+        "jest": "TZ=utc jest --ci --coverage && codecov",
         "release": "release-it --ci",
         "release:minor": "release-it minor --ci",
         "release:major": "release-it major --ci"
     },
     "jest": {
+        "coverageDirectory": "./coverage/",
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "./src/*.js",
+            "./src/**/*.js"
+        ],
         "coverageReporters": [
             "html",
-            "text-summary"
+            "json"
         ],
         "roots": [
-            "./test/app",
             "./test/unit"
         ],
         "testEnvironment": "node",
@@ -44,22 +50,29 @@
         "globalSetup": "./test/lib/global-setup.test.js",
         "testTimeout": 10000
     },
-    "dependencies": {},
+    "dependencies": {
+        "@thanpolas/crypto-utils": "^0.3.1",
+        "@thanpolas/univ3prices": "^3.0.0",
+        "ethers": "^5.4.5",
+        "jsbi": "^3.1.6",
+        "logality": "^3.0.4"
+    },
     "devDependencies": {
         "@types/jest": "27.0.1",
+        "codecov": "^3.8.3",
         "eslint": "7.32.0",
         "eslint-config-airbnb-base": "14.2.1",
         "eslint-config-prettier": "8.3.0",
         "eslint-plugin-import": "2.24.1",
         "eslint-plugin-jest": "24.4.0",
         "eslint-plugin-jsdoc": "36.0.7",
-        "eslint-plugin-prettier": "3.4.0",
+        "eslint-plugin-prettier": "3.4.1",
         "eslint-plugin-security": "1.4.0",
         "expect": "27.0.6",
         "jest": "27.0.6",
         "jest-extended": "0.11.5",
         "jest-junit": "12.2.0",
-        "release-it": "14.11.5",
-        "prettier": "2.3.2"
+        "prettier": "2.3.2",
+        "release-it": "14.11.5"
     }
 }
