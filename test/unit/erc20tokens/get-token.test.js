@@ -4,15 +4,15 @@
 
 const { ethers } = require('ethers');
 
-const { getToken } = require('../..');
-const contractProvider = require('../../src/erc20tokens/logic/contract-provider');
-const getTokenEnt = require('../../src/erc20tokens/logic/get-token.ent');
+const { getToken } = require('../../..');
+const contractProvider = require('../../../src/erc20tokens/logic/contract-provider');
+const getTokenEnt = require('../../../src/erc20tokens/logic/get-token.ent');
 
-const { providerMock } = require('../setup/provider.mock');
-const { contractToken } = require('../setup/ethers.mock');
+const { providerMock } = require('../../setup/provider.mock');
+const { contractToken } = require('../../setup/ethers.mock');
 
-const { assert: assertTokenData } = require('../assert/token-data.assert');
-const { token0Data } = require('../fixtures/token.fix');
+const { assert: assertTokenData } = require('../../assert/token-data.assert');
+const { token0Data } = require('../../fixtures/token.fix');
 
 describe('getToken()', () => {
   describe('Happy Path', () => {

@@ -4,12 +4,12 @@
 
 const { ethers } = require('ethers');
 
-const { getLPTokenDecimals } = require('../..');
-const contractProvider = require('../../src/erc20tokens/logic/contract-provider');
+const { getLPTokenDecimals } = require('../../..');
+const contractProvider = require('../../../src/erc20tokens/logic/contract-provider');
 
-const { lpContractMock } = require('../setup/lp-contract.mock');
-const { providerMock } = require('../setup/provider.mock');
-const { contractToken } = require('../setup/ethers.mock');
+const { lpContractMock } = require('../../setup/lp-contract.mock');
+const { providerMock } = require('../../setup/provider.mock');
+const { contractToken } = require('../../setup/ethers.mock');
 
 describe('getLPTokenDecimals()', () => {
   describe('Happy Path', () => {
