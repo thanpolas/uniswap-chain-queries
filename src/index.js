@@ -38,4 +38,5 @@ app.FEE_DECIMALS = uniV3.FEE_DECIMALS;
 app.getToken = erc20Token.getToken;
 app.getLPTokenDecimals = erc20Token.getLPTokenDecimals;
 app.getLPTokensData = erc20Token.getLPTokensData;
+app.getLPTokensDataByLpAddress = erc20Token.getLPTokensDataByLpAddress;
 app.erc20abi = erc20Token.erc20abi;
