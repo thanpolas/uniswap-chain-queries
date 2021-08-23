@@ -8,7 +8,7 @@ const mock = (module.exports = {});
 
 mock.providerMock = () => {
   const getNetwork = jest.fn(async () => providerNetworkFix());
-  const provider = jest.fn();
+  const provider = { getNetwork };
 
   return {
     provider,
