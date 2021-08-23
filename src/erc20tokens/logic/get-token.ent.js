@@ -2,9 +2,8 @@
  * @fileoverview Functions related to ERC20 token contracts.
  */
 
-const { ethers } = require('ethers');
-
-const erc20GenericAbi = require('../abi/erc20generic.abi.json');
+// don't spread so it's mockable for testing.
+const contractProvider = require('./contract-provider');
 
 const entity = (module.exports = {});
 
@@ -25,9 +24,8 @@ entity.getToken = async (tokenAddress, provider) => {
   }
 
   try {
-    const tokenContract = new ethers.Contract(
+    const tokenContract = contractProvider.getERC20Contract(
       tokenAddress,
-      erc20GenericAbi,
       provider,
     );
 
