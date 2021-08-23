@@ -11,7 +11,7 @@ const { contractFactoryUniV2 } = require('../../setup/contracts.mock');
 const { tokenPair } = require('../../fixtures/token.fix');
 const {
   factoryAddressFix,
-  lpAddressFix,
+  lpAddressV2Fix,
 } = require('../../fixtures/lp-factory.fix');
 
 describe('queryFactoryForLPuniswapv2()', () => {
@@ -32,7 +32,7 @@ describe('queryFactoryForLPuniswapv2()', () => {
 
       expect(res).toBeArray();
       expect(res).toHaveLength(1);
-      expect(res[0]).toEqual(lpAddressFix);
+      expect(res[0]).toEqual(lpAddressV2Fix);
     });
   });
   it('should return empty array when LP not found', async () => {
