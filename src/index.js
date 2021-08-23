@@ -20,7 +20,7 @@ const app = (module.exports = {});
 
 app.queryFactoryForLPuniswapv2 = uniV2.queryFactoryForLPuniswapv2;
 app.getPriceUniswapV2 = uniV2.getPriceUniswapV2;
-app.getLiquidityPoolTokensByLpAddress = uniV2.getLiquidityPoolTokensByLpAddress;
+app.getLPTokensByLpAddress = uniV2.getLPTokensByLpAddress;
 app.getFactoryContractV2 = uniV2.getFactoryContractV2;
 app.getLPContractV2 = uniV2.getLPContractV2;
 app.poolUniV2Abi = uniV2.poolUniV2Abi;

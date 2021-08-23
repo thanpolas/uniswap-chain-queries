@@ -66,7 +66,7 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
  * @return {Promise<Array<Object>>} A promise with an array tuple containing
  *    the token objects.
  */
-entity.getLiquidityPoolTokensByLpAddress = async (lpAddress, provider) => {
+entity.getLPTokensByLpAddress = async (lpAddress, provider) => {
   const lpContract = getLPContract(lpAddress, provider);
 
   const tokens = await getLPTokensData(lpContract, provider);
