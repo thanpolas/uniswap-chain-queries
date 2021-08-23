@@ -7,6 +7,7 @@ workflows:
       - node-v10
       - node-v12
       - node-v14
+      - node-v16
 
 jobs:
   node-v10:
@@ -22,6 +23,11 @@ jobs:
   node-v14:
     docker:
       - image: node:14
+    steps:
+      - build
+  node-v16:
+    docker:
+      - image: node:16
     steps:
       - build
 
