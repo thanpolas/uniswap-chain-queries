@@ -3,7 +3,7 @@
  *    Uni V3.
  */
 
-const { getFactoryContract } = require('./contract-provider.ent');
+const contractProviderUniv3 = require('./contract-provider.ent');
 const { FEES } = require('../constants/fees.const');
 const { NOT_FOUND } = require('../../constants/address.const');
 
@@ -22,7 +22,10 @@ entity.queryFactoryForLPuniswapv3 = async (
   provider,
   tokenPair,
 ) => {
-  const contract = getFactoryContract(factoryAddress, provider);
+  const contract = contractProviderUniv3.getFactoryContract(
+    factoryAddress,
+    provider,
+  );
 
   const [token0, token1] = tokenPair;
 
