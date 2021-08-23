@@ -2,8 +2,6 @@
  * @fileoverview Test the getToken() method.
  */
 
-const { ethers } = require('ethers');
-
 const { getToken } = require('../../..');
 const contractProvider = require('../../../src/erc20tokens/logic/contract-provider');
 const getTokenEnt = require('../../../src/erc20tokens/logic/get-token.ent');
@@ -25,7 +23,6 @@ describe('getToken()', () => {
       const contractMock = contractToken();
 
       contractProvider.getERC20Contract = contractMock.Contract;
-      ethers.Contract = contractMock.Contract;
 
       const tokenData = token0Data();
 
@@ -41,7 +38,6 @@ describe('getToken()', () => {
       const contractMock = contractToken();
 
       contractProvider.getERC20Contract = contractMock.Contract;
-      ethers.Contract = contractMock.Contract;
 
       const tokenData = token0Data();
 
@@ -66,7 +62,6 @@ describe('getToken()', () => {
       });
 
       contractProvider.getERC20Contract = contractMock.Contract;
-      ethers.Contract = contractMock.Contract;
 
       const tokenData = token0Data();
 
@@ -86,7 +81,6 @@ describe('getToken()', () => {
       });
 
       contractProvider.getERC20Contract = contractMock.Contract;
-      ethers.Contract = contractMock.Contract;
 
       const tokenData = token0Data();
 

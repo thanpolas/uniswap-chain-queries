@@ -2,8 +2,6 @@
  * @fileoverview Test the getLPTokensData() method.
  */
 
-const { ethers } = require('ethers');
-
 const { getLPTokenDecimals } = require('../../..');
 const contractProvider = require('../../../src/erc20tokens/logic/contract-provider');
 
@@ -19,7 +17,6 @@ describe('getLPTokenDecimals()', () => {
       const contractMock = contractToken();
 
       contractProvider.getERC20Contract = contractMock.Contract;
-      ethers.Contract = contractMock.Contract;
 
       const { lpContract } = lpMock;
       const { provider } = provMock;
@@ -36,7 +33,6 @@ describe('getLPTokenDecimals()', () => {
       const contractMock = contractToken();
 
       contractProvider.getERC20Contract = contractMock.Contract;
-      ethers.Contract = contractMock.Contract;
 
       const { lpContract } = lpMock;
       const { provider } = provMock;
