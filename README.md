@@ -8,6 +8,11 @@
 [![Discord](https://img.shields.io/discord/847075821276758096?label=discord&color=CBE9F0)](https://discord.gg/GkyEqzJWEY)
 [![Twitter Follow](https://img.shields.io/twitter/follow/thanpolas.svg?label=thanpolas&style=social)](https://twitter.com/thanpolas)
 
+> Check out the other Uniswap and crypto libraries, that this library depends on:
+>
+> 💰 ["@thanpolas/univ3prices" for calculating Uniswap V3 Prices][univ3prices].
+> 🔧 ["@thanpolas/crypto-utils" for calculating and formatting tokens and fractions][crypto-utils].
+
 ## Features
 
 This library will allow you to:
@@ -315,3 +320,5 @@ Copyright © [Thanos Polychronakis][thanpolas] and Authors, [Licensed under ISC]
 [erc20-docs]: #erc20-tokens-queries
 [univ2-docs]: #uniswap-v2-queries
 [univ3-docs]: #uniswap-v3-queries
+[univ3prices]: https://github.com/thanpolas/univ3prices
+[crypto-utils]: https://github.com/thanpolas/crypto-utils
