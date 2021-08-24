@@ -1,8 +1,8 @@
 /**
- * @fileoverview Test the queryFactoryForLPuniswapv3() method.
+ * @fileoverview Test the queryFactoryForLPUniV3() method.
  */
 
-const { queryFactoryForLPuniswapv3 } = require('../../..');
+const { queryFactoryForLPUniV3 } = require('../../..');
 const contractProviderUniv3 = require('../../../src/uniswapv3/logic/contract-provider.ent');
 
 const { providerMock } = require('../../setup/provider.mock');
@@ -16,7 +16,7 @@ const {
   lpAddressV3HighFeeFix,
 } = require('../../fixtures/lp-factory.fix');
 
-describe('queryFactoryForLPuniswapv3()', () => {
+describe('queryFactoryForLPUniV3()', () => {
   describe('Happy Path', () => {
     it('should return expected result', async () => {
       const provMock = providerMock();
@@ -26,7 +26,7 @@ describe('queryFactoryForLPuniswapv3()', () => {
 
       const { provider } = provMock;
 
-      const res = await queryFactoryForLPuniswapv3(
+      const res = await queryFactoryForLPUniV3(
         factoryAddressV3Fix,
         provider,
         tokenPair(),
