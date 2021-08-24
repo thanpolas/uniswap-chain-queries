@@ -11,7 +11,7 @@
 > Check out the other Uniswap and crypto libraries, that this library depends on:
 >
 > 💰 ["@thanpolas/univ3prices" for calculating Uniswap V3 Prices][univ3prices].
-> 🔧 ["@thanpolas/crypto-utils" for calculating and formatting tokens and fractions][crypto-utils].
+> <br />🔧 ["@thanpolas/crypto-utils" for calculating and formatting tokens and fractions][crypto-utils].
 
 ## Features
 
