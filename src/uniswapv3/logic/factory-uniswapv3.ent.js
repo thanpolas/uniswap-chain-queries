@@ -17,11 +17,7 @@ const entity = (module.exports = {});
  * @param {Array<Object>} tokenPair The token pair to look for.
  * @return {Promise<Array<string>|void>} A promise with liquidity pools or empty.
  */
-entity.queryFactoryForLPuniswapv3 = async (
-  factoryAddress,
-  provider,
-  tokenPair,
-) => {
+entity.queryFactoryForLPUniV3 = async (factoryAddress, provider, tokenPair) => {
   const contract = contractProviderUniv3.getFactoryContract(
     factoryAddress,
     provider,
