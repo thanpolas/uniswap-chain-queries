@@ -242,7 +242,7 @@ console.log(tokenPairPrice);
 // }
 ```
 
-## queryFactoryForLPuniswapv3(factoryAddress, provider, tokenPair)
+## queryFactoryForLPUniV3(factoryAddress, provider, tokenPair)
 
 Will return the Uniswap V3 Liquidity Pools for the given token pair. Pools is in plural as it will query and fetch pools for all three of the V3 Fee tiers (0.3%, 0.5% and 1%).
 
@@ -252,9 +252,7 @@ Will return the Uniswap V3 Liquidity Pools for the given token pair. Pools is in
 -   **Returns** `{Promise<Array<string>>}` An Array with the LP address if found, empty array if not.
 
 ```js
-const {
-    queryFactoryForLPuniswapv3,
-} = require('@thanpolas/uniswap-chain-queries');
+const { queryFactoryForLPUniV3 } = require('@thanpolas/uniswap-chain-queries');
 
 // Uniswap V3 Factory on mainsted
 const factoryAddress = '0x1F98431c8aD98523631AE4a59f267346ea31F984';
@@ -263,7 +261,7 @@ const tokenPair = [
     '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
 ];
 
-const lpAddresses = await queryFactoryForLPuniswapv3(
+const lpAddresses = await queryFactoryForLPUniV3(
     factoryAddress,
     provider,
     tokenPair,
