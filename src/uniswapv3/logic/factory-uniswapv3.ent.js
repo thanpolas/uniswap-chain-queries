@@ -23,12 +23,12 @@ entity.queryFactoryForLPUniV3 = async (factoryAddress, provider, tokenPair) => {
     provider,
   );
 
-  const [token0, token1] = tokenPair;
+  const [token0Address, token1Address] = tokenPair;
 
   const res = await Promise.allSettled([
-    contract.getPool(token0.address, token1.address, FEES.LOW),
-    contract.getPool(token0.address, token1.address, FEES.MEDIUM),
-    contract.getPool(token0.address, token1.address, FEES.HIGH),
+    contract.getPool(token0Address, token1Address, FEES.LOW),
+    contract.getPool(token0Address, token1Address, FEES.MEDIUM),
+    contract.getPool(token0Address, token1Address, FEES.HIGH),
   ]);
 
   const lpAddresses = await entity._clearResults(res);
