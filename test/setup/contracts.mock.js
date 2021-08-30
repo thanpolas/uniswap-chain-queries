@@ -156,21 +156,19 @@ mock.contractPoolUniV3 = () => {
  * @return {Object}
  */
 mock.contractFactoryUniV3 = () => {
-  let getPool;
+  const getPool = jest.fn(async (_token0Address, _token1Address, fee) => {
+    switch (fee) {
+      case 500:
+        return lpAddressV3SmallFeeFix;
+      case 3000:
+        return lpAddressV3MediumFeeFix;
+      case 10000:
+        return lpAddressV3HighFeeFix;
+      default:
+        break;
+    }
+  });
   const Contract = jest.fn(() => {
-    getPool = jest.fn(async (_token0Address, _token1Address, fee) => {
-      switch (fee) {
-        case 500:
-          return lpAddressV3SmallFeeFix;
-        case 3000:
-          return lpAddressV3MediumFeeFix;
-        case 10000:
-          return lpAddressV3HighFeeFix;
-        default:
-          break;
-      }
-    });
-
     return {
       getPool,
     };
