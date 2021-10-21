@@ -102,7 +102,7 @@ console.log(tokensData);
 // ]
 ```
 
-## getLPTokensDataByLpAddress(lpContract, provider)
+## getLPTokensDataByLpAddress(lpAddress, provider)
 
 Will fetch token data of a Uniswap V2 or V3 Liquidity Pool by using an LP address, wraps around the `getLPTokensData()` function.
 
