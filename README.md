@@ -310,6 +310,8 @@ When a new node version is available you need to updated it in the following:
 
 ## Release History
 
+-   **v0.1.2**, _07 Sep 2023_
+    -   Bumped ethers.js to 6+.
 -   **v0.1.1**, _30 Aug 2021_
     -   Fixed broken `queryFactoryForLPUniV3()` function that did not use the token tuple argument appropriately.
 -   **v0.1.0**, _24 Aug 2021_
