@@ -8,18 +8,10 @@
 [![Discord](https://img.shields.io/discord/847075821276758096?label=discord&color=CBE9F0)](https://discord.gg/GkyEqzJWEY)
 [![Twitter Follow](https://img.shields.io/twitter/follow/thanpolas.svg?label=thanpolas&style=social)](https://twitter.com/thanpolas)
 
-## <br />
-
-<br />
-
 > Check out the other Uniswap and crypto libraries, that this library depends on:
 >
 > 💰 [@thanpolas/univ3prices][univ3prices] for calculating Uniswap V3 Prices.
 > <br />🔧 [@thanpolas/crypto-utils][crypto-utils] for calculating and formatting tokens and fractions.
-
-## <br />
-
-<br />
 
 ## Features
 
