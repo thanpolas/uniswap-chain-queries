@@ -28,7 +28,7 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
     getLPTokenDecimals(lpContract, provider, optTokenDecimals),
   ]);
 
-  const reservesTuple = [_reserve0, _reserve1];
+  const reservesTuple = [String(_reserve0), String(_reserve1)];
 
   // Get the price
   const { price, priceFormatted, priceRev, priceRevFormatted } =
@@ -48,6 +48,8 @@ entity.getPriceUniswapV2 = async (lpAddress, provider, optTokenDecimals) => {
     priceRevFormatted,
     token0Reserves,
     token1Reserves,
+    token0ReservesBI: BigInt(_reserve0),
+    token1ReservesBI: BigInt(_reserve1),
     token0ReservesFormatted,
     token1ReservesFormatted,
     lpAddress,

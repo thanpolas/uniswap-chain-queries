@@ -40,7 +40,7 @@ entity.getToken = async (tokenAddress, provider) => {
       address: tokenAddress,
       name,
       symbol,
-      decimals,
+      decimals: Number(decimals),
       chainId: providerNetwork.chainId,
       network: providerNetwork.name,
     };
