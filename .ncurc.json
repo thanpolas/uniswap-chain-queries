@@ -1,0 +1,9 @@
+{
+    "reject": [
+        "faker",
+        "chalk",
+        "ora",
+        "release-it",
+        "knex"
+    ]
+}

@@ -239,6 +239,8 @@ console.log(tokenPairPrice);
 //     priceRev: '0.00029956',
 //     priceRevFormatted: '0.00029956',
 //     fee: '0.3%',
+//     token0ReservesBI: 36461240140n,
+//     token1ReservesBI: 30324597n,
 //     token0Reserves: '364612.40140',
 //     token1Reserves: '303.24597',
 //     token0ReservesFormatted: '364,612.4014',
@@ -302,6 +304,9 @@ When a new node version is available you need to updated it in the following:
 
 ## Release History
 
+-   **v0.1.3**, _09 Oct 2023_
+    -   Added 2 new properties on `getPriceUniswapV2()`, the `token0ReservesBI` and token1ReservesBI for bigint representation.
+    -   Upgraded all dependencies to latest.
 -   **v0.1.2**, _07 Sep 2023_
     -   Bumped ethers.js to 6+.
 -   **v0.1.1**, _30 Aug 2021_
