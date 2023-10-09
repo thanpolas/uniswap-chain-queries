@@ -312,6 +312,9 @@ When a new node version is available you need to updated it in the following:
 
 ## Release History
 
+-   **v0.1.3**, _09 Oct 2023_
+    -   Added 2 new properties on `getPriceUniswapV2()`, the `token0ReservesBI` and token1ReservesBI for bigint representation.
+    -   Upgraded all dependencies to latest.
 -   **v0.1.2**, _07 Sep 2023_
     -   Bumped ethers.js to 6+.
 -   **v0.1.1**, _30 Aug 2021_
