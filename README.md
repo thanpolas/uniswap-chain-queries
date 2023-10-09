@@ -247,6 +247,8 @@ console.log(tokenPairPrice);
 //     priceRev: '0.00029956',
 //     priceRevFormatted: '0.00029956',
 //     fee: '0.3%',
+//     token0ReservesBI: 36461240140n,
+//     token1ReservesBI: 30324597n,
 //     token0Reserves: '364612.40140',
 //     token1Reserves: '303.24597',
 //     token0ReservesFormatted: '364,612.4014',
