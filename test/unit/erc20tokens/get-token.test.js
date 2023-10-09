@@ -87,9 +87,7 @@ describe('getToken()', () => {
       const { provider } = provMock;
 
       // eslint-disable-next-line jest/valid-expect
-      expect(getToken(tokenData.address, provider)).rejects.toThrowError(
-        'An error',
-      );
+      expect(getToken(tokenData.address, provider)).rejects.toThrow('An error');
     });
   });
 });
