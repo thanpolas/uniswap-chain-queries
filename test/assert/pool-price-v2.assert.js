@@ -33,6 +33,8 @@ assert.assertProperties = (testObj) => {
     'priceFormatted',
     'priceRev',
     'priceRevFormatted',
+    'token0ReservesBI',
+    'token1ReservesBI',
     'token0Reserves',
     'token1Reserves',
     'token0ReservesFormatted',
